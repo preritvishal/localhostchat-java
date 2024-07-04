@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>localhost:chat</title>
+
+	<link rel="stylesheet" href="style.css">
+	<script>
+		function scrollToBottom() {
+			const messageList = document.getElementById("previous-text-div");
+			messageList.scrollTop = messageList.scrollHeight;
+		}
+
+
+		function getMessages() {	// original
+			scrollToBottom();
+			fetch("./chat") // Replace with your servlet URL
+				.then(response => response.json())
+				.then(data => {
+					const messageList = document.getElementById("previous-text-div");
+					messageList.innerHTML = ""; // Clear existing messages
+
+					data.forEach(message => {
+						const messageElement = document.createElement("pre");
+						messageElement.textContent = message;
+						messageList.appendChild(messageElement);
+					});
+
+				})
+				.catch(error => {
+					console.error("Error fetching messages:", error);
+				});
+		}
+
+		window.onload = function () {
+			const messageInput = document.getElementById("message-input");
+			messageInput.focus();
+			getMessages();
+			scrollToBottom();
+		};
+
+		setInterval(getMessages, 500);	// repeating it every half second to keep it updated!
+
+	</script>
+
+</head>
+
+<body>
+	<div id="main-div">
+
+		<div id="previous-text-div">
+
+		</div>
+
+		<div id="text-input-div">
+			<form method="post" action="chat" id="chat-form" autocomplete="off">
+				<input type="text" name="message" id="message-input" placeholder="Enter dummy data..."
+					autocomplete="off">
+<!-- 					<textarea name="message" id="message-input" placeholder="Enter dummy data..." -->
+<!-- 					autocomplete="off" form="chat-form"></textarea> -->
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
