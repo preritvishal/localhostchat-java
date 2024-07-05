@@ -23,7 +23,7 @@
 
 					data.forEach(message => {
 						const messageElement = document.createElement("pre");
-						messageElement.textContent = message;
+						messageElement.textContent = JSON.stringify(message, null, 4);
 						messageList.appendChild(messageElement);
 					});
 

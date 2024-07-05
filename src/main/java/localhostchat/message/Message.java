@@ -1,8 +1,8 @@
 package localhostchat.message;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
+import java.time.LocalTime;
 
 public class Message {
 	private static int autoId;
@@ -10,11 +10,7 @@ public class Message {
 	private String ip;
 	private String message;
 	private LocalDateTime timestamp;
-	
-	static {	// static block to start the id with one
-		++autoId;
-	}
-	
+
 	public Message() {
 		id = ++autoId;
 		this.timestamp = LocalDateTime.now();
@@ -50,9 +46,5 @@ public class Message {
 	public String toString() {
 		return "Message [id=" + id + ", ip=" + ip + ", message=" + message + ", timestamp=" + timestamp + "]";
 	}
-	
-	public String toJsonString() {
-		return String.format("{%n\tid: %d,%n\tip: %s,%n\tmessage: %s,%n\ttimestamp: %s%n}",
-				id, ip, message, timestamp.toString());
-	}
+
 }

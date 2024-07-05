@@ -3,19 +3,28 @@ package localhostchat.message;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 // this is a singleton class
 // and store in-memory messages
 public class MessageStore {
 	private List<Message> messageStore = new ArrayList<>();
-	private static MessageStore singleObject = new MessageStore();
+	private static MessageStore singleObject;
 
 	public static MessageStore getObject() {
+		if (singleObject == null)
+			singleObject = new MessageStore();
 		return singleObject;
 	}
 
 	// each method returns this instance to allow chaining
 	public MessageStore add(Message msg) {
 		messageStore.add(msg);
+		if (messageStore.size() > 25) {
+			messageStore.remove(0);
+		}
 		return this;
 	}
 
@@ -47,22 +56,13 @@ public class MessageStore {
 
 	public String getMessagesInString() {
 
-		String finalString = "[";
-
-		for (int i = 0; i < messageStore.size(); ++i) {
-
-			String separator = ",";
-
-			if (i == 0) {
-				separator = "";
-			}
-
-			finalString += String.format("%s%n%s", separator, messageStore.get(i).toJsonString());
-
-			if (i + 1 == messageStore.size()) {
-				finalString += String.format("%n]");
-			}
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.registerModule(new JavaTimeModule());
+			return objectMapper.writeValueAsString(messageStore);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "[ sorry! ]";
 		}
-		return finalString;
 	}
 }
