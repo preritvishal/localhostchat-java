@@ -2,6 +2,8 @@ package localhostchat.message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +20,9 @@ public class MessageStore {
 			singleObject = new MessageStore();
 		return singleObject;
 	}
+	
+	
+	// constructive methods
 
 	// each method returns this instance to allow chaining
 	public MessageStore add(Message msg) {
@@ -28,6 +33,8 @@ public class MessageStore {
 		return this;
 	}
 
+	// destructive methods
+	
 	@SuppressWarnings("finally")
 	public MessageStore remove(int idx) {
 		try {
@@ -44,14 +51,36 @@ public class MessageStore {
 	public MessageStore removeLast() {
 		return remove(messageStore.size() - 1);
 	}
+	
+	public MessageStore remove(Message msg) {
+		messageStore.remove(msg);
+		return this;
+	}
 
 	public MessageStore removeAll() {
 		messageStore.clear();
 		return this;
 	}
 
+	// returning methods
+	
 	public Message getMessage(int idx) {
 		return messageStore.get(idx);
+	}
+	
+	public Message getLastMessage() {
+		return messageStore.get(messageStore.size() - 1);
+	}
+	
+	public Optional<Message> getLastMessage(String ip) {
+		
+		for (int i = messageStore.size() - 1; i >= 0; ++i) {
+			if (messageStore.get(i).getIp().equals(ip)) {
+				return Optional.of(messageStore.get(i));
+			}
+		}
+			
+		return Optional.empty();
 	}
 
 	public String getMessagesInString() {
@@ -65,6 +94,12 @@ public class MessageStore {
 			return "[ sorry! ]";
 		}
 	}
+	
+	public List<Message> getFilteredMessageList(Predicate<Message> predicate) {
+		return messageStore.stream().filter(predicate).toList(); 
+	}
+	
+	// standard required methods
 	
 	public int size() {
 		return messageStore.size();

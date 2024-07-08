@@ -28,6 +28,7 @@ public class IPFilter implements Filter {
 		allowedIPs.add("0:0:0:0:0:0:0:1"); // localhost
 		allowedIPs.add("192.168.1.149"); // charvi
 		allowedIPs.add("192.168.1.57"); // charvi
+		allowedIPs.add("192.168.1.239"); // charvi
 		allowedIPs.add("192.168.1.162"); // my phone
 	}
 

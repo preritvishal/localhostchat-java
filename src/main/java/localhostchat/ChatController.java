@@ -20,7 +20,7 @@ public class ChatController extends HttpServlet {
 		String userMessage = req.getParameter("message");
 
 		if (userMessage != null || userMessage != "") {
-			MessageServiceImpl.workWithIt(userMessage);
+			MessageServiceImpl.workWithIt(userMessage, req.getRemoteAddr());
 		}
 		
 		resp.sendRedirect("./");
