@@ -64,8 +64,8 @@ public class MessageStore {
 
 	// returning methods
 	
-	public Message getMessage(int idx) {
-		return messageStore.get(idx);
+	public Optional<Message> getMessage(int id) {
+		return messageStore.stream().filter(msg -> msg.getId() == id).findFirst();
 	}
 	
 	public Message getLastMessage() {

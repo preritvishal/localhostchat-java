@@ -19,7 +19,7 @@ public class ChatController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String userMessage = req.getParameter("message");
 
-		if (userMessage != null || userMessage != "") {
+		if (userMessage != null && userMessage.strip().length() > 0) {
 			MessageServiceImpl.workWithIt(userMessage, req.getRemoteAddr());
 		}
 		

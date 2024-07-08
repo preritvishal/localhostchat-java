@@ -33,17 +33,11 @@ public class MessageServiceImpl {
 				}
 			} else if (userMessage.matches("[/]\\w+ \\d+")) { // commands with one arg, type int
 				String[] commandString = userMessage.split(" ");
-				int value = 0;
-				try {
-					value = Integer.parseInt(commandString[1]);
-				} catch (NumberFormatException e) {
-					System.out.println("Entered argument to command " + commandString[0] + " is wrong!");
-				}
-
+				int value = Integer.parseInt(commandString[1]);
+				
 				switch (commandString[0]) {
 
 				case "/last" -> { // removes multiple last messages based on ip address
-//
 					List<Message> filteredMessageList = messageStore.getFilteredMessageList(msg -> msg.getIp().equals(userIP));
 					
 					if (value >= filteredMessageList.size()) {
@@ -58,8 +52,35 @@ public class MessageServiceImpl {
 
 			} else if (userMessage.matches("[/]\\w+ \\w+")) { // commands with one arg, type string
 //				System.out.println("works 3!");
-			} else if (userMessage.matches("[/]\\w+ \\d+ \\w+")) { // commands with two arg, type int string
-//				System.out.println("works 4!");
+			} else if (userMessage.matches("[/]\\w+ \\d+ \\w+.+?")) { // commands with two arg, type int string
+
+				String[] commandString = userMessage.split(" ", 3);
+				int value = Integer.parseInt(commandString[1]);
+				
+				switch (commandString[0]) {
+				case "/reply" -> {
+//					Optional<Message> message = messageStore.getMessage(value);
+//					
+//					if (message.isPresent()) {
+//						message.get().setReplies(new Message(userIP, commandString[2]));
+//					} else {
+						Message msg = null;
+						for (var i: Message.getAllMessages()) {
+							if (i.getId() == value) {
+								msg = i;
+								break;
+							}
+						}
+						if (msg != null) {
+							msg.setReplies(new Message(userIP, commandString[2]));
+						}
+//					}
+				}
+				}
+				
+				
+				
+				
 			} else if (userMessage.matches("[/]\\w+ \\w+ \\d+")) { // commands with two arg, type string int
 //				System.out.println("works 5!");
 			} else if (userMessage.matches("[/]\\w+ \\w+ \\w+")) { // commands with two arg, type string string
