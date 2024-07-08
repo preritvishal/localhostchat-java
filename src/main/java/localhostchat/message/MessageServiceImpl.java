@@ -16,12 +16,33 @@ public class MessageServiceImpl {
 
 				case "/testing", "/dummy" -> {
 					messageStore.removeAll();
-					for (int i = 0; i < 13; ++i)
+					for (int i = 0; i < 9; ++i)
 						messageStore.add(new Message("localhost", "dummy message " + i));
-					}
+				}
 				}
 			} else if (userMessage.matches("[/]\\w+ \\d+")) { // commands with one arg, type int
-//				System.out.println("works 2!");
+				String[] commandString = userMessage.split(" ");
+				int value = 0;
+				try {
+					value = Integer.parseInt(commandString[1]);
+				} catch (NumberFormatException e) {
+					System.out.println("Entered argument to command " + commandString[0] + " is wrong!");
+				}
+
+				switch (commandString[0]) {
+
+				case "/last" -> {
+					
+					if (value >= messageStore.size()) {
+						messageStore.removeAll();
+					} else {
+						for (int i = 0; i < value; ++i) {
+							messageStore.removeLast();
+						}
+					}
+				}
+				}
+
 			} else if (userMessage.matches("[/]\\w+ \\w+")) { // commands with one arg, type string
 //				System.out.println("works 3!");
 			} else if (userMessage.matches("[/]\\w+ \\d+ \\w+")) { // commands with two arg, type int string

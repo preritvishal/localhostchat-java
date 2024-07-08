@@ -22,7 +22,7 @@ public class MessageStore {
 	// each method returns this instance to allow chaining
 	public MessageStore add(Message msg) {
 		messageStore.add(msg);
-		if (messageStore.size() > 25) {
+		if (messageStore.size() > 9) {
 			messageStore.remove(0);
 		}
 		return this;
@@ -64,5 +64,9 @@ public class MessageStore {
 			e.printStackTrace();
 			return "[ sorry! ]";
 		}
+	}
+	
+	public int size() {
+		return messageStore.size();
 	}
 }

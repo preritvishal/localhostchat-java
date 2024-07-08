@@ -1,8 +1,6 @@
 package localhostchat.message;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Message {
 	private static int autoId;
