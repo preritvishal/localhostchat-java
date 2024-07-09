@@ -1,5 +1,7 @@
 body {
-    background-color: black;
+    /* background-color: black; */
+    /* testing */
+    background-color: white;
 }
 
 body * {
@@ -10,8 +12,12 @@ p, pre {
     padding: 7px;
     border-radius: 9px;
     font-size: medium;
-    color: white;
-    background: rgb(34, 33, 33);
+    /* color: white; */
+    /* background: rgb(34, 33, 33); */
+    
+    /* testing */
+    color: black;
+    background: white;
 }
 
 pre {
@@ -40,12 +46,16 @@ pre {
     flex: 1;
     width: 99%;
     box-sizing: border-box;
-    background: rgb(32, 32, 32);
+    /* background: rgb(32, 32, 32); */
     outline: none;
     border: 0;
-    color: rgb(255, 255, 255);
+    /* color: rgb(255, 255, 255); */
     height: 2.8em;
     padding: 15px;
     border-radius: 20px;
     font-size: medium;
+    
+    /* Testing */
+    background: white;
+    color: black;
 }

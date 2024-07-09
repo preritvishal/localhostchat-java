@@ -13,6 +13,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 // and store in-memory messages
 public class MessageStore {
 	private List<Message> messageStore = new ArrayList<>();
+	private List<Message> allMessages = Message.getAllMessages();
 	private static MessageStore singleObject;
 
 	public static MessageStore getObject() {
@@ -77,6 +78,17 @@ public class MessageStore {
 		for (int i = messageStore.size() - 1; i >= 0; ++i) {
 			if (messageStore.get(i).getIp().equals(ip)) {
 				return Optional.of(messageStore.get(i));
+			}
+		}
+			
+		return Optional.empty();
+	}
+	
+	public Optional<Message> getLastMessageReply(String ip) {
+		
+		for (int i = allMessages.size() - 1; i >= 0; ++i) {
+			if (allMessages.get(i).getIp().equals(ip)) {
+				return Optional.of(allMessages.get(i));
 			}
 		}
 			

@@ -21,9 +21,18 @@ dependencies {
 	
 	// 01 june, 2022
 	compileOnly("jakarta.servlet:jakarta.servlet-api:6.0.0")
+	
+	// for POJO to JSON conversion
 	implementation("com.fasterxml.jackson.core:jackson-core:2.15.2")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
+	
+	// For web-sockets
+	implementation 'javax.websocket:javax.websocket-api:1.1'
+//	compileOnly("jakarta.websocket:jakarta.websocket-api:2.1.1")
+//	implementation("org.glassfish.tyrus:tyrus-client:2.1.5")
+//	implementation("org.glassfish.tyrus:tyrus-server:2.1.5")
+	
 		
 }
 
